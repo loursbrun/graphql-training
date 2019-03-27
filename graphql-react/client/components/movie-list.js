@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { graphql } from "react-apollo";
-import readMoviesQuery from "../queries/readMovies";;
+import readMoviesQuery from "../queries/readMovies";
 import { Link } from "react-router";
 
 class MovieList extends Component {
