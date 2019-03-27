@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { graphql, compose } from "react-apollo";
 import readMoviesQuery from "../queries/readMovies";
+import deleteMovieMutation from "../queries/deleteMovie";
 import { Link } from "react-router";
 
 class MovieList extends Component {
@@ -26,7 +27,7 @@ class MovieList extends Component {
                 return (
                 <li className="collection-item" key={movie.id}>
                 {movie.title}
-                <i className="material-icons secondary-content delete_button">delete</i>
+                <i className="material-icons secondary-content delete_button" onClick={() => this.onDeleteMovie(movie.id)}>delete</i>
                 </li>)
             })
         } else {
@@ -34,13 +35,23 @@ class MovieList extends Component {
         }
     }
 
-
-
+    onDeleteMovie(id) {
+        console.log("" + id);
+        this.props.deleteMovieMutation({
+            variables: {
+                id
+            }
+        }).then( () => {
+            this.props.readMoviesQuery.refetch();
+        })
+    }
 }
 
 export default compose(
 graphql(readMoviesQuery, {
     name:"readMoviesQuery"
-})
-
+}),
+graphql(deleteMovieMutation, {
+    name:"deleteMovieMutation"
+}),
 )(MovieList);
