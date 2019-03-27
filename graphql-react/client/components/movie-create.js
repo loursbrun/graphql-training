@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { graphql } from "react-apollo";
 import createMovieMutation from "../queries/createMovie";
+import readMovieQuery from "../queries/readMovies";
 import { hashHistory } from "react-router";  
 
 class MovieCreate extends Component {
@@ -35,7 +36,8 @@ class MovieCreate extends Component {
             this.props.mutate({
                 variables: {
                     title: this.state.terms
-                }
+                },
+                refetchQueries: [{query : readMovieQuery}]
             }).then ( () => {
                 hashHistory.push("/movies");
             })
