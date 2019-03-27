@@ -23,7 +23,11 @@ class MovieList extends Component {
     renderMovies() {
         if (!this.props.data.loading) {
             return this.props.data.movies.map((movie) => {
-                return <li className="collection-item" key={movie.id}>{movie.title}</li>
+                return (
+                <li className="collection-item" key={movie.id}>
+                {movie.title}
+                <i className="material-icons secondary-content delete_button">delete</i>
+                </li>)
             })
         } else {
             return "chargement des données..."
