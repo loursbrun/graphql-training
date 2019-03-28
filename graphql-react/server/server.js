@@ -22,14 +22,10 @@ mongoose.connection
     .once('open', () => console.log('Connecté à MongoLab'))
     .on('error', error => console.log('Erreur de connexion à MongoLab:', error));
 
-
-
-
-
 app.use(bodyParser.json());
 app.use('/graphql', expressGraphQL({
   schema,
-  graphiql: true,
+  graphiql: false,
 }));
 
 const webpackMiddleware = require('webpack-dev-middleware');
