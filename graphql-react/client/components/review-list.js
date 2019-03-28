@@ -1,4 +1,6 @@
 import React, { Component } from 'react';
+import LikeReviewMutation from "../queries/likeReview";
+import { graphql, compose } from "react-apollo";
 
 class ReviewList extends Component {
     render() {
@@ -14,10 +16,23 @@ class ReviewList extends Component {
 
     renderReviewList(){
         return this.props.reviews.map( (review) => {
-            return <li key={review.id} className="collection-item" >{review.content}</li>
+            return <li key={review.id} className="collection-item" >
+            {review.content}
+            <div className="secondary-content delete_button">
+              <i className="material-icons" onClick={() => this.likeReview(review.id) }>thumb_up</i>
+              {review.likes}
+            </div>
+            </li>
         })
     }
 
-}
+    likeReview(id){
+        this.props.LikeReviewMutation({variables: {id}})
+    }
 
-export default ReviewList;
+}
+export default compose(
+    graphql(LikeReviewMutation, {
+        name:"LikeReviewMutation"
+    })
+    )(ReviewList);
