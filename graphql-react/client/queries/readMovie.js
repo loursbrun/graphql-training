@@ -4,7 +4,12 @@ export default gql`
     {
        movie(id: $id){
            id,
-           title
+           title,
+           reviews{
+               id,
+               content,
+               likes
+           }
        }
     }
 `;
